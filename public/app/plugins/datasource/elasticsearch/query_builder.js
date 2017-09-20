@@ -262,6 +262,9 @@ function (queryDef) {
             if (the_metric.type !== 'count' && !queryDef.isPipelineAgg(the_metric.type)) {
               var key = the_metric.field.replace(/[^A-Za-z0-9]/gi, '');
               metricAgg['buckets_path'][key] = the_metric.id;
+            } else if (the_metric.type === 'derivative') {
+              var dkey = 'drv' + the_metric.field;
+              metricAgg['buckets_path'][dkey] = the_metric.id;
             }
           }
         } else {
